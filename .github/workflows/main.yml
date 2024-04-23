@@ -9,9 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Latest Repo
-      - uses: actions/checkout@main
-      - run: docker build -t 9873907098/docker-react -f Dockerfile.dev .
-      - run: docker run -e CI=true -f 9873907098/docker-react
+        uses: actions/checkout@main
+        
+      - name: build the image
+        run: docker build -t 9873907098/docker-react -f Dockerfile.dev .
+      - name: test the image 
+        run: docker run -e CI=true -f 9873907098/docker-react
   
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
